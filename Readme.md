@@ -1,5 +1,10 @@
-## Project start
+## Angular Starter Kit
 
-### Steps
+### Intitial Project Setup Steps
+
 1. npm install
 2. bower install
+
+### List Available Gulp Tasks
+
+gulp help

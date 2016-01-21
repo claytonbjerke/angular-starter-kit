@@ -54,11 +54,8 @@
     "disallowSpacesInsideParentheses": true,
 
     "jsDoc": {
-        "checkAnnotations": true,
         "checkParamNames": true,
-        "requireParamTypes": true,
-        "checkReturnTypes": true,
-        "checkTypes": true
+        "requireParamTypes": true
     },
 
     "disallowMultipleLineBreaks": true,

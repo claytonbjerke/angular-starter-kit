@@ -10,13 +10,20 @@
   "license": "ISC",
   "dependencies": {
     "bower": "^1.7.2",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "gulp-if": "^2.0.0"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^2.0.0",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-print": "^2.0.1",
+    "gulp-task-listing": "^1.0.1",
+    "gulp-util": "^3.0.7",
     "jshint": "^2.9.1",
-    "lodash": "^4.0.0"
+    "jshint-stylish": "^2.1.0",
+    "lodash": "^4.0.0",
+    "yargs": "^3.32.0"
   }
 }
