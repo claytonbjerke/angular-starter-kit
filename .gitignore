@@ -1,0 +1,6 @@
+Font/Packages/*.*
+Content/Packages/*.*
+Scripts/Packages/*.*
+bower_components
+node_modules
+build

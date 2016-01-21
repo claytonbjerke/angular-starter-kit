@@ -1,0 +1,22 @@
+{
+  "name": "angular-starter-kit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Clayton Bjerke",
+  "license": "ISC",
+  "dependencies": {
+    "bower": "^1.7.2",
+    "express": "^4.13.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jscs": "^3.0.2",
+    "gulp-jshint": "^2.0.0",
+    "jshint": "^2.9.1",
+    "lodash": "^4.0.0"
+  }
+}
