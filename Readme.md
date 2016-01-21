@@ -7,4 +7,4 @@
 
 ### List Available Gulp Tasks
 
-gulp help
+1. gulp help

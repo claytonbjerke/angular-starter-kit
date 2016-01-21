@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var args = require('yargs').argv;
+var del = require('del');
 var config = require('./gulp.config')();
 
 var $ = require('gulp-load-plugins')({
@@ -19,7 +20,7 @@ gulp.task('default', ['help']);
 gulp.task('analyze', function () {
 
     log('Analyzing source with JSHint and JSCS');
-    log('**NOTE: To view all analyzed files type: \'gulp analyze --verbose\' ');
+    log('**NOTE: View all files analyzed: \'gulp analyze --verbose\'');
 
     return gulp
         .src(config.alljsFiles)
@@ -32,6 +33,43 @@ gulp.task('analyze', function () {
         }))
         .pipe($.jshint.reporter('fail'));
 });
+
+gulp.task('styles', ['styles-clean'], function () {
+
+    log('Compiling Less --> CSS');
+
+    return gulp
+        .src(config.less)
+        .pipe($.plumber())
+        .pipe($.less())
+        //.on('error', errorLogger)
+        .pipe($.autoprefixer({
+            browsers: ['last 2 versions', '> 5%']
+        }))
+        .pipe(gulp.dest(config.temp));
+});
+
+gulp.task('styles-less-watcher', function () {
+    gulp.watch([config.less], ['styles']);
+});
+
+gulp.task('styles-clean', function () {
+    var files = config.temp + '**/*.css';
+    clean(files);
+});
+
+/////////////
+function errorLogger(error) {
+    log('*** Start of Error ***');
+    log(error);
+    log('*** End of Error ***');
+    this.emit('end');
+}
+
+function clean(path, done) {
+    log('' + $.util.colors.blue(path));
+    del(path);
+}
 
 /**
  * Log a message or series of messages using chalk's blue color.
