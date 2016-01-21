@@ -1,6 +1,5 @@
-Project start
+## Project start
 
-Step 1)
-- cmd: npm install
-Step 2)
-- cmd bower install
+### Steps
+1. npm install
+2. bower install
