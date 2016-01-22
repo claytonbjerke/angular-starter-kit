@@ -9,11 +9,16 @@
   "author": "Clayton Bjerke",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "bower": "^1.7.2",
+    "compression": "^1.6.1",
+    "cors": "^2.7.1",
     "express": "^4.13.3",
-    "gulp-if": "^2.0.0"
+    "gulp-if": "^2.0.0",
+    "morgan": "^1.6.1"
   },
   "devDependencies": {
+    "browser-sync": "^2.11.1",
     "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
@@ -21,6 +26,7 @@
     "gulp-jshint": "^2.0.0",
     "gulp-less": "^3.0.5",
     "gulp-load-plugins": "^1.2.0",
+    "gulp-nodemon": "^2.0.6",
     "gulp-plumber": "^1.0.1",
     "gulp-print": "^2.0.1",
     "gulp-task-listing": "^1.0.1",

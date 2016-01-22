@@ -1,19 +1,16 @@
 var gulp = require('gulp');
-var args = require('yargs').argv;
-var del = require('del');
-var config = require('./gulp.config')();
-
 var $ = require('gulp-load-plugins')({
     lazy: true
 });
 
+var args = require('yargs').argv;
+var browserSync = require('browser-sync');
+var del = require('del');
 var _ = require('lodash');
 
-/*
-TODO:
-- dev task
-- file watcher
-*/
+var config = require('./gulp.config')();
+
+var port = process.env.PORT || config.defaultPort;
 
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
@@ -34,6 +31,33 @@ gulp.task('analyze', function () {
         .pipe($.jshint.reporter('fail'));
 });
 
+gulp.task('serve-dev', ['styles'], function () {
+
+    var isDev = true;
+
+    var nodeOptions = {
+        script: config.nodeServer,
+        delayTime: 1,
+        env: {
+            'PORT': port,
+            'NODE_ENV': 'development'
+        },
+        watch: [config.server]
+    };
+
+    return $.nodemon(nodeOptions)
+        .on('start', function () {
+            log('*** nodemon started');
+            startBrowserSync();
+        })
+        .on('crash', function () {
+            log('*** nodemon crashed: script crashed for some reason');
+        })
+        .on('exit', function () {
+            log('*** nodemon exited cleanly');
+        });
+});
+
 gulp.task('styles', ['styles-clean'], function () {
 
     log('Compiling Less --> CSS');
@@ -42,7 +66,6 @@ gulp.task('styles', ['styles-clean'], function () {
         .src(config.less)
         .pipe($.plumber())
         .pipe($.less())
-        //.on('error', errorLogger)
         .pipe($.autoprefixer({
             browsers: ['last 2 versions', '> 5%']
         }))
@@ -53,22 +76,64 @@ gulp.task('styles-less-watcher', function () {
     gulp.watch([config.less], ['styles']);
 });
 
-gulp.task('styles-clean', function () {
+gulp.task('styles-clean', function (done) {
     var files = config.temp + '**/*.css';
-    clean(files);
+    clean(files, done);
 });
 
 /////////////
-function errorLogger(error) {
-    log('*** Start of Error ***');
-    log(error);
-    log('*** End of Error ***');
-    this.emit('end');
+function startBrowserSync() {
+
+    if (args.nosync || browserSync.active) {
+        return;
+    }
+
+    log('Starting browser-sync on port: ' + port);
+
+    gulp.watch([config.less], ['styles'])
+        .on('change', function (event) {
+            changeEvent(event);
+        });
+
+    var options = {
+        proxy: 'localhost:' + port,
+        port: 3000,
+        files: [
+            config.client + '**/*.*',
+            '!' + config.less,
+            config.temp + '**/*.css'
+        ],
+        ghostMode: {
+            clicks: true,
+            location: false,
+            forms: true,
+            scroll: true
+        },
+        injectChanges: true,
+        logFileChanges: true,
+        logLevel: 'debug',
+        logPrefix: 'gulp-patterns',
+        notify: true,
+        reloadDelay: 1000
+    };
+
+    browserSync(options);
+
 }
 
+function changeEvent(event) {
+    var srcPattern = new RegExp('/.*(?=/' + config.source + ')/');
+    log('File: ' + event.path.replace(srcPattern, '') + ' ' + event.type);
+}
+
+/**
+ * Delete files at a given path
+ */
 function clean(path, done) {
     log('' + $.util.colors.blue(path));
-    del(path);
+    del(path).then(function () {
+        done();
+    });
 }
 
 /**

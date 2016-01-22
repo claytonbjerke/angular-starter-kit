@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="angularStarterKit">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
@@ -9,20 +10,23 @@
 
     <link rel="stylesheet" href=".tmp/styles.css">
 </head>
+
 <body flow-prevent-drop>
     <div>
-       <ui-view>
+        <ui-view>
             Angular Starter Kit
         </ui-view>
-
     </div>
 
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="/bower_components/lodash/lodash.js"></script>
     <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/flow.js/dist/flow.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="/bower_components/ng-flow/dist/ng-flow.js"></script>
+
+    <!-- app -->
+    <script src="app/app.js"></script>
+
+
 </body>
+
 </html>
