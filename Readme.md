@@ -10,6 +10,19 @@
 
 1. gulp help
 
+### Create Your Own Project Off of Angular Starter Kit
+
+1. delete .git folder
+2. change project folder to whatever
+3. git init
+
+### TODO
+
+1. bower injection
+2. add testing tasks
+
 ### BUGS
 
 1. nodemon restart event
+
+
