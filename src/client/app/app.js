@@ -12,14 +12,22 @@
                 url: '/app',
                 abstract: true,
                 templateUrl: clientApp + 'layout/layout.html',
+                controller: 'layoutController',
+                controllerAs: 'layoutController'
             })
-            .state('app.example', {
-                url: '/example',
-                templateUrl: clientApp + 'example-module/example.html',
-                controller: 'exampleController',
-                controllerAs: 'exampleController'
+            .state('app.example-1', {
+                url: '/example-1',
+                templateUrl: clientApp + 'example-1-module/example-1.html',
+                controller: 'example1Controller',
+                controllerAs: 'example1Controller'
+            })
+            .state('app.example-2', {
+                url: '/example-2',
+                templateUrl: clientApp + 'example-2-module/example-2.html',
+                controller: 'example2Controller',
+                controllerAs: 'example2Controller'
             });
 
-         $urlRouterProvider.otherwise('/app/example');
+        $urlRouterProvider.otherwise('/app/example-1');
     });
 })();
